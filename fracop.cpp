@@ -39,8 +39,7 @@ void simplify(int a, int b) {
     } else if ((REAL)a / b < 0) { // einai arnhtiko
         //To WRITE() den allazei grammh
         WRITE("-");
-        //Me to apolyto bebaiwnw pws to proshmo paei mono mprosta
-        WRITELN(intPart, abs(numerator), abs(denumerator));
+        WRITELN(intPart, numerator, denumerator);
     } else { // einai thetiko
         WRITELN(intPart, numerator, denumerator);
         WRITELN("+");
