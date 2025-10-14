@@ -42,10 +42,6 @@ void simplify(int a, int b) {
         WRITELN(intPart, numerator, denumerator);
     } else { // einai thetiko
         WRITELN(intPart, numerator, denumerator);
-        WRITELN("+");
-        WRITELN(a);
-        WRITELN(b);
-        WRITELN(a / b);
     }
 }
 
