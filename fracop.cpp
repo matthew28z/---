@@ -5,22 +5,21 @@ void simplify(int a, int b) {
     //Krataei se apolyto gia na leitourgei h aplopoihsh
     int numerator = abs(a);
     int denumerator = abs(b);
-    int i;
     
-    //Epilegei to mikrotero
-    if (numerator > denumerator) {
-        i = denumerator;
-    } else {
-        i = numerator;
-    }
-    
-    //Stamataei prin to 1
-    for (int x = i; x > 1; x--) {
-        if (numerator % x == 0 && denumerator % x == 0) {
-            numerator = numerator / x;
-            denumerator = denumerator / x;
+    //Euclid
+    while (numerator > 0 && denumerator > 0) {
+        if (numerator > denumerator) {
+            numerator = numerator % denumerator;
+        } else {
+            denumerator = denumerator % numerator;
         }
     }
+    
+    int gcd = numerator + denumerator;
+    
+    //Se apolyto giati to proshmo paei sto intPart
+    numerator = abs(a) / gcd;
+    denumerator = abs(b) / gcd;
     
     //Blepei poses monades xwrane sto klasma afou auto exei aplopoihthei
     while (numerator / denumerator >= 1) {
@@ -31,21 +30,20 @@ void simplify(int a, int b) {
     }
     
     //Symfwna me thn askhsh
-    if (numerator == 0) { // einai mhden
+    if (numerator == 0) { 
         denumerator = 1;
-        WRITELN(0, 0, 1);
-    /*Bazei a / b giati auta exoun akoma to proshmo
-      To (REAL) krataei to dekadiko meros*/
-    } else if ((REAL)a / b < 0) { // einai arnhtiko
+    } 
+    
+    if ((a > 0 && b < 0) || (a < 0 && b > 0)) { // einai arnhtiko
         //To WRITE() den allazei grammh
         WRITE("-");
-        WRITELN(intPart, numerator, denumerator);
-    } else { // einai thetiko
-        WRITELN(intPart, numerator, denumerator);
     }
+    WRITELN(intPart, numerator, denumerator);
 }
 
 PROGRAM {
+    bool goodInput = true;
+    
     int N = READ_INT();
     SKIP_LINE();
     
@@ -76,14 +74,18 @@ PROGRAM {
             } else if (operation == '/') {
                 if (c == 0) {
                     WRITELN("error");
+                    goodInput = false;
                 } else {
                     num = a * d;
                     denum = b * c;                    
                 }
             }
         
-            simplify(num, denum);
+            if (goodInput) {
+                simplify(num, denum);                
+            }
+
         }
         
-    }
+    }    
 }
